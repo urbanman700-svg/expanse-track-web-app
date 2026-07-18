@@ -40,7 +40,7 @@ jobs:
             if [ "$BUILD_FORMAT" = "aab" ]; then
               CORDOVA_CMD="cordova build android --release -- --packageType=bundle --stacktrace --info"
             else
-              CORDOVA_CMD="cordova build android --release -- --stacktrace --info"
+              CORDOVA_CMD="cordova build android --release -- --packageType=apk --stacktrace --info"
             fi
           else
             CORDOVA_CMD="cordova build android --debug -- --stacktrace --info"
