@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.example.webapp" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Web app</name>
+    <description>A sample Apache Cordova application with STANDARD.</description>
+    <author email="dev@cordova.apache.org" href="http://cordova.io">Apache Cordova Team</author>
+    <content src="index.html" />
+    <icon src="res/icon.png" />
+    <preference name="SplashScreen" value="screen" />
+    <preference name="AndroidWindowSplashScreenAnimatedIcon" value="res/screen.png" />
+    <preference name="AndroidWindowSplashScreenBackground" value="#121320" />
+    <splash src="res/screen.png" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+</widget>

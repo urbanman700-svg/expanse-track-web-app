@@ -1,0 +1,83 @@
+name: Cordova Android Build
+on: [push, workflow_dispatch]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      CORDOVA_ANDROID_GRADLE_DISTRIBUTION_URL: https://services.gradle.org/distributions/gradle-8.1.1-all.zip
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - name: set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+      - name: Install Android Build Tools
+        run: |
+          $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "build-tools;33.0.2" || sdkmanager "build-tools;33.0.2"
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.1.1
+      - name: Install Cordova CLI
+        run: npm install -g cordova
+      - name: Install Dependencies
+        run: npm install
+      - name: Add Android Platform & Prepare
+        run: cordova platform add android --nosave || true
+      - name: Build Android APK
+        run: cordova build android --release -- --stacktrace --info
+      - name: Sign Release Artifact
+        env:
+          KEYSTORE_B64: "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"
+          KEYSTORE_PWD: "123456"
+          ALIAS: "Web-app"
+          KEY_PWD: "123456"
+        run: |
+          echo "::add-mask::$KEYSTORE_B64"
+          echo "::add-mask::$KEYSTORE_PWD"
+          echo "::add-mask::$KEY_PWD"
+          
+          # 1. Decode keystore file
+          echo "$KEYSTORE_B64" | base64 -d > release.keystore
+          
+          # 2. Create output directory
+          mkdir -p dist-out
+          
+          # 3. Perform signing
+          if [ "apk" = "aab" ]; then
+            TARGET_AAB=$(find . -name "*.aab" | grep -v "node_modules" | head -n 1)
+            if [ -n "$TARGET_AAB" ]; then
+              echo "Signing AAB: $TARGET_AAB"
+              jarsigner -keystore release.keystore -storepass "$KEYSTORE_PWD" -keypass "$KEY_PWD" "$TARGET_AAB" "$ALIAS"
+              cp "$TARGET_AAB" dist-out/app-release.aab
+              echo "AAB signed successfully"
+            else
+              echo "Error: Could not find any AAB files to sign"
+              exit 1
+            fi
+          else
+            TARGET_APK=$(find . -name "*unsigned.apk" -o -name "*release.apk" | grep -v "node_modules" | head -n 1)
+            if [ -n "$TARGET_APK" ]; then
+              echo "Signing APK: $TARGET_APK"
+              APKSIGNER=$(find $ANDROID_HOME/build-tools -name "apksigner" | sort -V | tail -n 1)
+              $APKSIGNER sign --ks release.keystore --ks-key-alias "$ALIAS" --ks-pass pass:"$KEYSTORE_PWD" --key-pass pass:"$KEY_PWD" --out dist-out/app-release.apk "$TARGET_APK"
+              echo "APK signed successfully"
+            else
+              echo "Error: Could not find any APK files to sign"
+              exit 1
+            fi
+          fi
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-release-signed-apk
+          path: |
+            dist-out/app-release.apk
+      

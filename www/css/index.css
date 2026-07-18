@@ -1,0 +1,82 @@
+:root {
+    --bg: #f5f7fa;
+    --surface: #ffffff;
+    --text: #222;
+    --muted: #777;
+    --primary: #4361ee;
+    --danger: #e63946;
+    --success: #2a9d8f;
+    --border: #ddd;
+}
+
+[data-theme="dark"] {
+    --bg: #121212;
+    --surface: #1e1e1e;
+    --text: #eee;
+    --muted: #aaa;
+    --border: #333;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); }
+
+#app { max-width: 480px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
+.app-header { padding: 16px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.app-header h1 { font-size: 20px; }
+
+#view-container { flex: 1; overflow-y: auto; padding: 16px; padding-bottom: 80px; }
+.view { display: none; }
+.view.active { display: block; }
+
+.balance-card { background: var(--primary); color: #fff; border-radius: 16px; padding: 24px; text-align: center; margin-bottom: 16px; }
+.balance-card h2 { font-size: 32px; margin-top: 8px; }
+.mini-cards { display: flex; gap: 12px; margin-bottom: 16px; }
+.mini-card { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+.mini-card h3 { font-size: 18px; margin-top: 6px; }
+
+.chart-box, .recent-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+.chart-box canvas { max-height: 260px; }
+.recent-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.recent-head a { color: var(--primary); text-decoration: none; }
+
+.txn-list { list-style: none; }
+.txn-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+.txn-item .left { display: flex; flex-direction: column; }
+.txn-item .cat { font-weight: bold; }
+.txn-item .note { font-size: 12px; color: var(--muted); }
+.txn-item .amt { font-weight: bold; }
+.txn-item .amt.income { color: var(--success); }
+.txn-item .amt.expense { color: var(--danger); }
+.txn-item .actions { display: flex; gap: 6px; }
+.txn-item button { border: none; background: none; cursor: pointer; font-size: 14px; }
+
+.toolbar { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.toolbar input, .toolbar select { padding: 8px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); }
+
+.group-title { margin: 12px 0 6px; font-size: 14px; color: var(--muted); }
+.empty-state { text-align: center; color: var(--muted); padding: 40px 0; }
+
+.bottom-tabs { position: fixed; bottom: 0; width: 100%; max-width: 480px; display: flex; justify-content: space-around; background: var(--surface); border-top: 1px solid var(--border); padding: 8px 0; }
+.tab { border: none; background: none; font-size: 12px; color: var(--muted); }
+.tab.active { color: var(--primary); font-weight: bold; }
+.fab { width: 56px; height: 56px; border-radius: 50%; background: var(--primary); color: #fff; border: none; font-size: 24px; margin-top: -28px; box-shadow: 0 4px 10px rgba(0,0,0,.3); }
+
+.secondary-btn, .danger-btn { display: block; width: 100%; padding: 12px; margin: 8px 0; border-radius: 8px; border: 1px solid var(--border); background: var(--surface); color: var(--text); cursor: pointer; }
+.danger-btn { color: var(--danger); border-color: var(--danger); }
+
+.settings-group { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 12px; }
+.settings-group label { display: block; margin-bottom: 8px; font-weight: bold; }
+
+.warning-banner { background: var(--danger); color: #fff; padding: 12px; border-radius: 8px; margin-bottom: 12px; text-align: center; }
+.hidden { display: none !important; }
+
+.budget-item { margin-bottom: 12px; }
+.budget-item .bar-bg { background: var(--border); height: 10px; border-radius: 5px; overflow: hidden; }
+.budget-item .bar-fill { height: 100%; background: var(--success); }
+.budget-item .bar-fill.over { background: var(--danger); }
+
+.modal { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; z-index: 100; }
+.modal-content { background: var(--surface); width: 90%; max-width: 400px; border-radius: 12px; padding: 20px; position: relative; }
+.modal-close { position: absolute; top: 10px; right: 14px; font-size: 22px; cursor: pointer; }
+.modal-content input, .modal-content select { width: 100%; padding: 10px; margin: 6px 0; border: 1px solid var(--border); border-radius: 8px; background: var(--surface); color: var(--text); }
+.modal-content button { margin-top: 10px; }
